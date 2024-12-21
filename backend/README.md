@@ -75,3 +75,82 @@ If the request body does not meet the validation requirements, the response will
     ]
 }
 ```
+# User Login Endpoint Documentation
+
+#  `POST  /users/login` Endpoint
+
+## Description
+The `/users/login` endpoint allows users to log in to the application by providing their email and password. Upon successful authentication, the user receives a JSON Web Token (JWT) for session management.
+
+---
+
+## Endpoint
+
+**URL:** `/users/login`  
+**Method:** `POST`  
+**Content-Type:** `application/json`  
+**Authentication Required:** No (but returns a token for subsequent authenticated requests)
+
+---
+
+## Request Parameters
+
+### Body Parameters
+The following parameters must be included in the request body:
+
+| Field       | Type   | Required | Description                              |
+|-------------|--------|----------|------------------------------------------|
+| `email`     | String | Yes      | The email address of the user. Must be valid. |
+| `password`  | String | Yes      | The user's password. Must be at least 3 characters. |
+
+### Example Request Body
+```json
+{
+  "email": "user@example.com",
+  "password": "securepassword123"
+}
+```
+
+---
+
+## Response
+
+### Successful Response
+**Status Code:** `200 OK`  
+**Description:** The user is successfully authenticated.  
+
+**Example Response:**
+```json
+{
+  "message": "Login successful",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+### Error Responses
+| Status Code | Description                               | Example Response                                                                                                                                                  |
+|-------------|-------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `400 Bad Request` | Validation error for the input fields. | ```json {"errors": [{"msg": "Invalid Email"}]} ```                                                                                                     |
+| `401 Unauthorized` | Invalid credentials provided.         | ```json {"message": "Invalid email or password"} ```                                                                                                     |
+| `500 Internal Server Error` | Server encountered an issue.         | ```json {"message": "An error occurred. Please try again later."} ```                                                                                       |
+
+---
+
+## Validation Rules
+- `email`: Must be a valid email address.
+- `password`: Must be at least 3 characters long.
+
+---
+
+## Implementation
+
+The endpoint is implemented in the following files:
+- **Route Definition:** [`user.routes.js`](#7)  
+- **Model Schema:** [`user.model.js`](#8)
+
+---
+
+## Notes
+- The JWT returned should be included in the `Authorization` header (e.g., `Bearer <token>`) for accessing protected resources.
+- The endpoint checks both email format and password length before processing the login.
+
