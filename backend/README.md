@@ -227,3 +227,72 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ## Notes
 - The token is added to a blacklist to prevent reuse
 - Clears the token cookie if present
+
+
+# Captain Registration Endpoint Documentation
+
+## `POST /captain/register` Endpoint
+
+## Description
+This endpoint is used to register a new captain with their vehicle details.
+
+## Request Body
+The request body should be a JSON object with the following fields:
+- `fullname`: String, minimum 3 characters
+- `email`: String, valid email address
+- `password`: String, minimum 3 characters
+- `vehicle`: An object containing:
+    - `color`: String, minimum 3 characters
+    - `plate`: String, minimum 3 characters
+    - `capacity`: Number, minimum 1
+    - `vehicleType`: String, must be one of: 'car', 'bike', 'auto'
+
+### Example Request
+```json
+{
+    "fullname": "John Smith",
+    "email": "john.smith@example.com",
+    "password": "password123",
+    "vehicle": {
+        "color": "black",
+        "plate": "ABC123",
+        "capacity": 4,
+        "vehicleType": "car"
+    }
+}
+```
+
+## Response
+The response will be a JSON object containing the authentication token and captain details.
+
+### Example Response
+```json
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "captain": {
+        "_id": "60d0fe4f5311236168a109ca",
+        "fullname": "John Smith",
+        "email": "john.smith@example.com",
+        "vehicle": {
+            "color": "black",
+            "plate": "ABC123",
+            "capacity": 4,
+            "vehicleType": "car"
+        }
+    }
+}
+```
+
+## Status Codes
+- `201 Created`: Captain successfully registered
+- `400 Bad Request`: Invalid input or captain already exists
+- `500 Internal Server Error`: Server error
+
+## Validation Rules
+- `email`: Must be a valid email address
+- `fullname`: Minimum 3 characters
+- `password`: Minimum 3 characters
+- `vehicle.color`: Minimum 3 characters
+- `vehicle.plate`: Minimum 3 characters
+- `vehicle.capacity`: Minimum 1
+- `vehicle.vehicleType`: Must be 'car', 'bike', or 'auto'

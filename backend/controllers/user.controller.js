@@ -6,7 +6,12 @@ const blackListTokenModel = require('../models/blacklistToken.model')
 module.exports.registerUser = async(req, res, next)=>{
     const errors = validationResult(req)
     
+    const isUserAlreadyExists = await userModel.findOne({email})
 
+    if(isUserAlreadyExists){
+        return res.status(400).json({message: 'User already exists'})
+    }
+    
     if(!errors.isEmpty()){
         return res.status(400).json({errors:errors.array()})
     }
