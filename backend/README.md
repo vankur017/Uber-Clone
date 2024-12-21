@@ -154,3 +154,76 @@ The endpoint is implemented in the following files:
 - The JWT returned should be included in the `Authorization` header (e.g., `Bearer <token>`) for accessing protected resources.
 - The endpoint checks both email format and password length before processing the login.
 
+
+# User Profile Endpoint Documentation
+
+## `GET /users/profile` Endpoint
+
+## Description
+Retrieves the authenticated user's profile information.
+
+## Authentication
+Requires a valid JWT token in the Authorization header.
+
+### Example Request
+```bash
+GET /users/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+## Response
+Returns the user's profile data.
+
+### Example Response
+```json
+{
+    "_id": "60d0fe4f5311236168a109ca",
+    "fullname": {
+        "firstname": "John",
+        "lastname": "Doe"
+    },
+    "email": "john.doe@example.com"
+}
+```
+
+## Status Codes
+- `200 OK`: Profile retrieved successfully
+- `401 Unauthorized`: Invalid or missing token
+- `500 Internal Server Error`: Server error
+
+
+
+
+
+# User Logout Endpoint Documentation
+
+## `GET /users/logout` Endpoint
+
+## Description
+Logs out the user by invalidating their JWT token.
+
+## Authentication
+Requires a valid JWT token in the Authorization header or cookies.
+
+### Example Request
+```bash
+GET /users/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+## Response
+### Example Response
+```json
+{
+    "message": "Logged out successfully"
+}
+```
+
+## Status Codes
+- `200 OK`: Successfully logged out
+- `401 Unauthorized`: Invalid or missing token
+- `500 Internal Server Error`: Server error
+
+## Notes
+- The token is added to a blacklist to prevent reuse
+- Clears the token cookie if present
