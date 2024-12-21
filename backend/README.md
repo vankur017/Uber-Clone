@@ -13,7 +13,7 @@ The request body should be a JSON object with the following fields:
     - `firstname`(string, required): A string with at least 3 characters.
     - `lastname` (string, optional): A string with at least 3 characters.
 - `email`(string, required): A valid email address.
-- `password` (string, required): A string with at least 3 characters.
+- `password` : A string with at least 3 characters.
 
 ### Example Request
 ```json
@@ -53,5 +53,25 @@ The response will be a JSON object containing the authentication token and the u
 ## Validation Errors
 If the request body does not meet the validation requirements, the response will include an array of error messages.
 
-
+### Example Validation Error Response
+```json
+{
+    "errors": [
+        {
+            "msg": "Invalid Email",
+            "param": "email",
+            "location": "body"
+        },
+        {
+            "msg": "First name must be at least 3 characters",
+            "param": "fullname.firstname",
+            "location": "body"
+        },
+        {
+            "msg": "Last name must be at least 3 characters",
+            "param": "fullname.lastname",
+            "location": "body"
+        }
+    ]
+}
 ```
