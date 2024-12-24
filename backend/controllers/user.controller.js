@@ -1,11 +1,13 @@
 const userModel = require('../models/user.model')
 const userService = require('../services/user.service')
 const {validationResult} = require('express-validator')
-const blackListTokenModel = require('../models/blacklistToken.model')
+const blackListTokenModel = require('../models/blackListToken.model')
 
 module.exports.registerUser = async(req, res, next)=>{
     const errors = validationResult(req)
-    
+      
+    const {fullname, email, password} = req.body
+
     const isUserAlreadyExists = await userModel.findOne({email})
 
     if(isUserAlreadyExists){
@@ -16,9 +18,7 @@ module.exports.registerUser = async(req, res, next)=>{
         return res.status(400).json({errors:errors.array()})
     }
 
-    
-    const {fullname, email, password} = req.body
-
+  
     // if (!fullname || !fullname.firstname || !fullname.lastname || !email || !password) {
     //     return res.status(400).json({ error: 'All fields are required' });
     // }

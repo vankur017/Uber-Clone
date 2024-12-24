@@ -75,6 +75,9 @@ If the request body does not meet the validation requirements, the response will
     ]
 }
 ```
+
+
+
 # User Login Endpoint Documentation
 
 #  `POST  /users/login` Endpoint
@@ -155,6 +158,8 @@ The endpoint is implemented in the following files:
 - The endpoint checks both email format and password length before processing the login.
 
 
+
+
 # User Profile Endpoint Documentation
 
 ## `GET /users/profile` Endpoint
@@ -227,6 +232,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ## Notes
 - The token is added to a blacklist to prevent reuse
 - Clears the token cookie if present
+
+
 
 
 # Captain Registration Endpoint Documentation
