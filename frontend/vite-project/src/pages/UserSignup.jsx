@@ -9,52 +9,51 @@ const UserSignup = () => {
   const [firstname, setFirstName] = useState('');
   const [lastname, setLastName] = useState('');
   const navigate = useNavigate();
+  const { user, setUser } = useContext(UserDataContext);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const { setUser } = useContext(UserDataContext);
-
-  const submitHandler = async (e) => {
-    e.preventDefault();
-
-    const newUser = {
-      fullname: {
-        fisrtname: firstname,
-        lastname: lastname,
-      },
-      email, 
-      password,
-    };
-
-    try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/users/register`,
-        newUser,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          withCredentials: true, 
-        }
-      );
-
-
-      if (response.status === 201) {
-        const data = response.data;
-        setUser(data.user);
-        navigate('/home');
-      }
-    } catch (error) {
-      console.error('Error during signup:', error.response?.data || error.message);
-    }
-
+  const resetForm = () => {
     setEmail('');
     setFirstName('');
     setLastName('');
     setPassword('');
   };
 
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+
+    const newUser = {
+      fullname: { firstname, lastname },
+      email,
+      password,
+    };
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/users/register`,
+        newUser
+      );
+
+      if (response.status === 201) {
+
+        const data = await response.data;
+        setUser(response.data.user);
+        localStorage.setItem('token', data.token);
+        navigate('/home');
+        resetForm();
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || 'Signup failed. Please try again.');
+    } 
+  };
+
   return (
     <div className="p-4 flex flex-col justify-between">
       <div>
+        {/* {loading && <p className="text-center text-gray-500">Signing up...</p>} */}
         <img
           className="w-24 mb-5"
           src="https://brandlogos.net/wp-content/uploads/2021/12/uber-brandlogo.net_-512x512.png"

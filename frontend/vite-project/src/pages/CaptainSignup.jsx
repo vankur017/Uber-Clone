@@ -1,32 +1,86 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { CaptainDataContext } from '../context/CaptainContext'
+
 const UserSignup = () => {
+  
 
   const [capemail, setCapEmail] = useState('')
   const [password, setPassword] = useState('')
   const [firstname, setFirstName] = useState('')
   const [lastname, setlastName] = useState('')
-  const [userData, setUserData] = useState({})
+  const [capacity, setCapacity] = useState('')
+  const [vehicleType, setVehicleType] = useState('')
+  const [plate, setPlate] = useState('')
+  const [color, setColor] = useState('')
+  const { capData, setCapData } = useContext(CaptainDataContext);
+  const navigate = useNavigate()
 
+  const resetForm = ()=>{
+        setCapEmail('')
+        setFirstName('')
+        setlastName('')
+        setPassword('')
+        setCapacity('')
+        setColor('')
+        setPlate('')
+        setVehicleType('')
+  }
 
-  const submitHandler = (e)=>{
+  const submitHandler = async(e)=>{
       e.preventDefault()
-      setUserData({
-        fullname:{
-          fname: firstname,
-          lname : lastname
+
+
+
+      const newCaptain = {
+        fullname: {
+          firstname: firstname,
+          lastname: lastname
         },
+        email: capemail,
+        password: password,
+        vehicle: {
+          capacity: capacity,
+          vehicleType: vehicleType,
+          plate: plate,
+          color: color
+        }
+      }
+    
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/register`, newCaptain)
+
+      const data = await response.data
+
+
+
+      // setUserData({
+      //   fullname:{
+      //     fname: firstname,
+      //     lname : lastname
+      //   },
         
-        mail : capemail,
-        password: password
-      })
+      //   mail : capemail,
+      //   password: password
+      // })
 
-      console.log(userData);
+      console.log(data);
 
-      setCapEmail('')
-      setFirstName('')
-      setlastName('')
-      setPassword('')
+      if(response.status === 201){
+
+        setCapData(data.captain)
+
+        localStorage.setItem('token', data.token)
+      
+        
+        navigate('/captainhome')
+        console.log('Signup Success');
+        resetForm()
+        
+     
+      }
+
+    
       
       
 
@@ -39,11 +93,11 @@ const UserSignup = () => {
     <img className='w-24 mb-5' src='https://www.svgrepo.com/show/505031/uber-driver.svg' alt='Not Rendered'/>
      <form >
       <h3 className='text-base font-medium mb-2 '>What's your name?</h3>
-         <div className='flex gap-3 mb-5'>
+         <div className='flex gap-3 mb-3'>
 
            <input
             required
-            className='bg-[#eeeeee] w-1/2 mb-7 border-2 rounded px-4 py-2 text-lg placeholder:text-base'
+            className='bg-[#eeeeee] w-1/2 mb-3 border-2 rounded px-4 py-1 text-lg placeholder:text-base'
             type='text'
             placeholder='firstname'
             onChange={(e)=>setFirstName(e.target.value)}
@@ -52,7 +106,7 @@ const UserSignup = () => {
 
             <input
             required
-            className='bg-[#eeeeee] w-1/2 mb-7 border-2 rounded px-4 py-2 text-lg placeholder:text-base'
+            className='bg-[#eeeeee] w-1/2 mb-3 border-2 rounded px-4 py-1 text-lg placeholder:text-base'
             type='text'
             placeholder='lastname'
             value={lastname}
@@ -62,7 +116,7 @@ const UserSignup = () => {
        <h3 className='text-base font-medium mb-2 '>What's your email?</h3>
        <input
         required
-        className='bg-[#eeeeee] mb-7 border-2 rounded px-4 py-2 w-full text-lg placeholder:text-base'
+        className='bg-[#eeeeee] mb-3 border-2 rounded px-4 py-1 w-full text-lg placeholder:text-base'
         type='email'
         placeholder='email@example.com'
         value={capemail}
@@ -72,12 +126,57 @@ const UserSignup = () => {
        <h3 className='text-base font-medium mb-2'>Enter Password</h3>
        <input
         required
-        className='bg-[#eeeeee] mb-7 border-2 rounded px-4 py-2 w-full text-lg placeholder:text-base'
+        className='bg-[#eeeeee] mb-3 border-2 rounded px-4 py-1 w-full text-lg placeholder:text-base'
          type='password'
          placeholder='password'
          value={password}
          onChange={(e)=>setPassword(e.target.value)}
          />
+           
+      <h3 className='text-base font-medium mb-2'>Enter Vehcile Details</h3>
+       <div className='flex gap-3 mb-5 '>
+       
+         <input
+          required
+          className='bg-[#eeeeee] mb-3 border-2 rounded px-4 py-1 w-1/2 text-lg placeholder:text-base'
+           type='text'
+           placeholder='colour'
+           value={color}
+           onChange={(e)=>setColor(e.target.value)}
+           />
+             
+         <input
+          required
+          className='bg-[#eeeeee] mb-3 border-2 rounded px-4 py-1 w-1/2 text-lg placeholder:text-base'
+           type='text'
+           placeholder='plate'
+           value={plate}
+           onChange={(e)=>setPlate(e.target.value)}
+           />
+       </div>
+       <div className='flex gap-3 mb-5 '>
+       
+       <input
+        required
+        className='bg-[#eeeeee] mb-3 border-2 rounded px-4 py-1 w-1/2 text-lg placeholder:text-base'
+         type='number'
+         placeholder='capacity'
+         value={capacity}
+         onChange={(e)=>setCapacity(e.target.value)}
+         />
+        <select 
+          className='bg-[#eeeeee] mb-3 border-2 rounded px-4 py-1 w-1/2 text-lg placeholder:text-base'
+          value={vehicleType}
+          onChange={(e)=>setVehicleType(e.target.value)}
+        >
+          <option value=''>Select Vehicle Type</option>
+          <option value='car'>car</option>
+          <option value='bike'>bike</option>
+          <option value='auto'>auto</option>
+        </select>
+      
+     </div>
+         
        <button onClick={submitHandler} className='bg-[#111] text-white font-semibold mb-7 border-2 rounded-lg px-4 py-2 w-full text-lg placeholder:text-base'>Sign Up</button>
           
          
