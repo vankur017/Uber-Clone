@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import VehiclePanel from '../components/VehiclePanel';
 import ConfirmedRide from '../components/Confirmedride';
 import LookingForDriver from '../components/LookingForDriver';
+import WaitingForDriver from '../components/WaitingForDriver';
 
 const Home = () => {
   const [pickupLocation, setPickupLocation] = useState('');
@@ -34,6 +35,10 @@ const Home = () => {
   const [vehiclefound, setVehicleFound] = useState(false)
 
   const vehiclefoundRef = useRef(null)
+
+  const [waitingForDriver, setWaitingForDriver] = useState(false)
+
+  const watinfForDriverRef = useRef(null)
 
   const navigate = useNavigate()
   
@@ -123,11 +128,30 @@ const Home = () => {
       });
     }
   }, [vehiclefound]);
+
+  useGSAP(() => {
+    if (waitingForDriver) {
+      gsap.to(watinfForDriverRef.current, {
+       transform: 'translateY(0)'
+        
+        
+      });
+   
+    } else {
+      gsap.to(watinfForDriverRef.current, {
+        transform: 'translateY(100%)'
+      });
+    }
+  }, [waitingForDriver]);
   
+  
+  const handleLogoClick = ()=>{
+    navigate('/home')
+  }
 
    return (
     <div className="h-screen relative overflow-hidden">
-      <img ref={logoRef} onClick={handleLogo} className="w-24 absolute left-5 top-5 z-10 cursor-pointer" src={UBER_LOGO} alt="Not Rendered" />
+      <div onClick={handleLogoClick}><img ref={logoRef} onClick={handleLogo} className="w-24 absolute left-5 top-5 z-10 cursor-pointer" src={UBER_LOGO} alt="Not Rendered" /></div>
       <div className="h-screen w-screen">
         {/* For temporary use */}
         <img className="h-full w-full object-cover" src={UBER_MAP} alt="Map" />
@@ -192,6 +216,12 @@ const Home = () => {
               
 
               <LookingForDriver setVehicleFound={setVehicleFound}/> 
+     
+     </div>
+     <div ref={watinfForDriverRef} className="w-full translate-y-full   fixed bg-white  bottom-0  p-3">
+              
+
+              <WaitingForDriver waitingForDriver={waitingForDriver} setWaitingForDriver={setWaitingForDriver}  /> 
      
      </div>
     </div>

@@ -10,23 +10,30 @@ const captainRoutes = require('./routes/captain.routes');
 connectToDb();
 
 
-
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-
-app.get('/', (req, res) => {
-    res.send('Hello World');
-});
-
-app.use('/users', userRoutes);
-app.use('/captains', captainRoutes);
-
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ error: 'Internal Server Error' });
-});
-
-
-module.exports = app;
+const corsOptions = {
+  origin: 'http://localhost:5173', // Your frontend URL
+  credentials: true,              // Allow credentials
+};
+  app.options('/users/register', cors(corsOptions));
+  app.use(cors(corsOptions));
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+  app.use(cookieParser());
+  
+  app.get('/', (req, res) => {
+      res.send('Hello World');
+  });
+  
+  app.use('/users', userRoutes);
+  app.use('/captains', captainRoutes);
+  
+  app.use((err, req, res, next) => {
+    //   console.error(err.stack);
+      console.log(`Received request: ${req.method} ${req.url}`);
+      
+      res.status(500).json({ error: 'Internal Server Error' });
+      next()
+  });
+  
+  
+  module.exports = app;

@@ -6,7 +6,7 @@ console.log(props);
 
   
   return (
-    <div>  
+    <div >  
         <h5 className='w-[93%] p-1 absolute top-0 text-center ' onClick={()=>props.setVehicleFound(false)} ><i className="text-3xl text-gray-300 ri-arrow-down-wide-line"></i></h5>
            <h3 className="text-2xl mt-8 font-semibold mb-5">Looking Your Rider</h3>
            <div className='flex gap-7 justify-between flex-col items-center'>
