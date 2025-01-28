@@ -10,6 +10,7 @@ import VehiclePanel from '../components/VehiclePanel';
 import ConfirmedRide from '../components/Confirmedride';
 import LookingForDriver from '../components/LookingForDriver';
 import WaitingForDriver from '../components/WaitingForDriver';
+import Riding from './Riding';
 
 const Home = () => {
   const [pickupLocation, setPickupLocation] = useState('');
@@ -218,10 +219,16 @@ const Home = () => {
               <LookingForDriver setVehicleFound={setVehicleFound}/> 
      
      </div>
-     <div ref={watinfForDriverRef} className="w-full translate-y-full   fixed bg-white  bottom-0  p-3">
+     <div ref={watinfForDriverRef} className="w-full translate-y-full fixed bg-white  bottom-0  p-3">
               
 
               <WaitingForDriver waitingForDriver={waitingForDriver} setWaitingForDriver={setWaitingForDriver}  /> 
+     
+     </div>
+     <div className="w-full translate-y-full fixed bg-white  bottom-0  p-3">
+              
+
+              <Riding  /> 
      
      </div>
     </div>

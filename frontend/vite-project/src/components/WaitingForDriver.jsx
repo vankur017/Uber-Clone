@@ -3,7 +3,7 @@ import { UBER_CAB_LOGO } from '../assets/constants'
 
 const WaitingForDriver = (props) => {
   return (
-    <div className=''>
+    <div className='-mt-4'>
          <h5 className='w-[93%] p-1 absolute top-0 text-center ' onClick={()=>props.setWaitingForDriver(false)} ><i className="text-3xl text-gray-300 ri-arrow-down-wide-line"></i></h5>
          <div className='flex items-center justify-between '>
             <img className='h-12' src={UBER_CAB_LOGO}></img>
@@ -13,7 +13,7 @@ const WaitingForDriver = (props) => {
                 <p className='text-sm'>Alto 800</p>
             </div>
          </div>
-                <div className='flex gap-7 justify-between flex-col items-center'>
+                <div className='flex gap-7 justify-between flex-col items-center pb-4'>
             
                
                     <div className='w-full mt-5'>
