@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserDataContext } from '../context/UserContext';
 import axios from 'axios';
+import { UBER_BACKEND_URL } from '../assets/constants';
 
 const UserSignup = () => {
   const [email, setEmail] = useState('');
@@ -33,7 +34,7 @@ const UserSignup = () => {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/users/register`,
+        `${UBER_BACKEND_URL}/users/register`,
         newUser
       );
 

@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { UserDataContext } from '../context/UserContext'
+import { UBER_BACKEND_URL } from '../assets/constants'
 
 const UserLogin = () => {
 
@@ -14,16 +15,16 @@ const UserLogin = () => {
 
   const submitHandler =async(e)=>{
     e.preventDefault()
-    console.log(email, password);
+   // console.log(email, password);
     
     const userData = {
       email: email,
       password: password
     }
 
-    const response =await axios.post(`${import.meta.env.VITE_BASE_URL}/users/login`, userData)
+    const response =await axios.post(`${UBER_BACKEND_URL}/users/login`, userData)
 
-   
+  
     if (response.status === 200) {
       setUser(response.data.user);
       
@@ -31,7 +32,7 @@ const UserLogin = () => {
      
       navigate('/home');
     }
-    console.log(userData);
+  //  console.log(userData);
     
     
 

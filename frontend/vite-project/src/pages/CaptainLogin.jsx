@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { UBER_BACKEND_URL } from '../assets/constants'
 
 const CaptainLogin = () => {
   const [capemail, setCapEmail] = useState('')
@@ -10,9 +11,9 @@ const CaptainLogin = () => {
   
   const submitHandler = async(e)=>{
     e.preventDefault()
-    console.log(capemail, cappassword);
+    //console.log(capemail, cappassword);
 
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/captainlogin`, {
+    const response = await axios.post(`${UBER_BACKEND_URL}/captains/captainlogin`, {
       email: capemail,
       password: cappassword
     }, 
@@ -22,7 +23,7 @@ const CaptainLogin = () => {
     
     
     if(response.status === 200){
-      console.log('Login Success');
+      //console.log('Login Success');
       setCapData(response.data.captain)
       localStorage.setItem('token', response.data.token)
       navigate('/captainhome')

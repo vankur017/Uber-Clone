@@ -7,6 +7,9 @@ const cookieParser = require('cookie-parser');
 const connectToDb = require('./db/db');
 const userRoutes = require('./routes/user.routes');
 const captainRoutes = require('./routes/captain.routes');
+const mapsRotues = require('./routes/maps.routes');
+const ridesRoutes = require('./routes/rides.routes');
+
 connectToDb();
 
 
@@ -27,6 +30,7 @@ const corsOptions = {
   app.use('/users', userRoutes);
   app.use('/captains', captainRoutes);
   
+
   app.use((err, req, res, next) => {
     //   console.error(err.stack);
       console.log(`Received request: ${req.method} ${req.url}`);
@@ -35,5 +39,8 @@ const corsOptions = {
       next()
   });
   
+  app.use('/maps', mapsRotues);
+  app.use('/rides', ridesRoutes)
+
   
   module.exports = app;

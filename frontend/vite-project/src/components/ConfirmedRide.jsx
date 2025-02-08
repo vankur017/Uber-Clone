@@ -2,7 +2,7 @@ import React from 'react'
 import { UBER_CAB_LOGO } from '../assets/constants'
 
 const ConfirmedRide = (props) => {
-  console.log(props);
+  //console.log(props);
   
   return (
     <div>

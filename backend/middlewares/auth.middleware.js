@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const { cookie } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const captainModel = require('../models/captain.model');
-const blackListTokenModel = require('../models/blackListToken.model');
+const blackListTokenModel = require('../models/blacklistToken.model');
 
 module.exports.authUser = async(req, res, next)=>{
 

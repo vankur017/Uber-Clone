@@ -303,3 +303,31 @@ The response will be a JSON object containing the authentication token and capta
 - `vehicle.plate`: Minimum 3 characters
 - `vehicle.capacity`: Minimum 1
 - `vehicle.vehicleType`: Must be 'car', 'bike', or 'auto'
+
+/**
+ * @route GET /maps/get-coordinate
+ * @group Maps - Operations about maps
+ * @param {string} address.query.required - Address to get coordinates for
+ * @returns {object} 200 - An object containing latitude and longitude
+ * @returns {Error}  default - Unexpected error
+ * @security JWT
+ */
+
+/**
+ * @route GET /maps/get-distance-time
+ * @group Maps - Operations about maps
+ * @param {string} origin.query.required - Origin address
+ * @param {string} destination.query.required - Destination address
+ * @returns {object} 200 - An object containing distance and time
+ * @returns {Error}  default - Unexpected error
+ * @security JWT
+ */
+
+/**
+ * @route GET /maps/get-suggestions
+ * @group Maps - Operations about maps
+ * @param {string} input.query.required - Input text for autocomplete suggestions
+ * @returns {object} 200 - An array of autocomplete suggestions
+ * @returns {Error}  default - Unexpected error
+ * @security JWT
+ */

@@ -3,3 +3,5 @@ export const UBER_MAP = 'https://miro.medium.com/v2/resize:fit:720/format:webp/0
 export const UBER_CAB_LOGO ='https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_538,w_956/v1646663215/assets/6e/e50c1b-2174-4c97-83a1-bfd4544689d0/original/uberX.png'
 export const UBER_MOTO_LOGO ='https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_384,w_576/v1649230978/assets/a2/553a18-2f77-4722-a4ba-f736f4cb405e/original/Uber_Moto_Orange_558x372_pixels_Desktop.png'
 export const UBER_AUTO_LOGO = 'https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_368,w_552/v1648431773/assets/1d/db8c56-0204-4ce4-81ce-56a11a07fe98/original/Uber_Auto_558x372_pixels_Desktop.png'
+export const UBER_AUTO_SUGGESTIONS='http://localhost:4000/maps/get-suggestions'
+export const UBER_BACKEND_URL='http://localhost:4000'

@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { CaptainDataContext } from '../context/CaptainContext'
+import { UBER_BACKEND_URL } from '../assets/constants'
 
 const UserSignup = () => {
   
@@ -48,7 +49,7 @@ const UserSignup = () => {
         }
       }
     
-      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/register`, newCaptain)
+      const response = await axios.post(`${UBER_BACKEND_URL}/captains/register`, newCaptain)
 
       const data = await response.data
 
@@ -64,7 +65,7 @@ const UserSignup = () => {
       //   password: password
       // })
 
-      console.log(data);
+     // console.log(data);
 
       if(response.status === 201){
 
