@@ -4,7 +4,8 @@
 frontend/vite-project/.env
 
 # Dependencies
-node_modules/
+backend/node_modules
+frontend/vite-project/node_modules
 
 # Logs
 logs/
